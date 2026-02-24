@@ -45,11 +45,12 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Nombre del permiso*' }).fill('Permiso por trabajo remoto');
   await page.waitForTimeout(500);
 
-// tiempo total de solicitudes
+// tiempo total
   await page.getByRole('textbox', { name: 'Tiempo total*' }).click();
   await page.getByRole('textbox', { name: 'Tiempo total*' }).fill('48');
   await page.waitForTimeout(500);
 
+  //Solicitudes totales
   const solicitudesTotales = page.getByRole('spinbutton', { name: 'Solicitudes totales' });
   await solicitudesTotales.fill('5');
   await page.waitForTimeout(500);
@@ -59,6 +60,7 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Tiempo por mes*' }).fill('8');
   await page.waitForTimeout(500);
 
+  //Solicitudes por mes cantidad
   const solicitudesmes = page.getByRole('spinbutton', { name: 'Solicitudes por mes' });
   await solicitudesmes.fill('1');
   await page.waitForTimeout(500);
@@ -68,7 +70,7 @@ test('test', async ({ page }) => {
   await switchSinSueldo.click({ force: true });
   await page.waitForTimeout(500);
 
-//seleccionamos la vigencia
+//seleccionamos el genero
   const genero = page.locator('.v-input').filter({ hasText: 'Seleccione genero al que se aplica' }).first();
   await genero.locator('.v-select__selections').click({ force: true });
   await page.getByText('Ambos', { exact: true }).click();
@@ -76,12 +78,12 @@ test('test', async ({ page }) => {
 
 
   //damos clic en cancelar
-  await page.getByRole('button', { name: 'Cancelar' }).click();
-  await page.waitForTimeout(500);
+ // await page.getByRole('button', { name: 'Cancelar' }).click();
+  //await page.waitForTimeout(500);
 
   //damos clic en guardar
-  //await page.getByRole('button', { name: 'Agregar' }).nth(1).click();
-  //await page.waitForTimeout(500);
+  await page.getByRole('button', { name: 'Agregar' }).nth(1).click();
+  await page.waitForTimeout(500);
   //await page.getByRole('button', { name: 'Agregar' }).nth(2).click();
   //await page.waitForTimeout(500);
 
