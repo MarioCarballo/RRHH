@@ -31,8 +31,28 @@ test('test', async ({ page }) => {
   await crearhoraad.waitFor({ state: 'visible' });
   await crearhoraad.click();
 
+//Carga de archivo
 
-  //PARA CREAR LOS EVENTOS
+//Damos clic al boton de cargar
+await page.getByRole('button', { name: 'Cargar', exact: true }).first().click();
+//Indicamos de que este listo para buscar y cargar el archivo
+const promesaArchivo = page.waitForEvent('filechooser');
+//Damos clic al boton de buscar
+await page.getByRole('button', { name: 'Buscar archivo' }).click();
+//Contenemos el evento en una variable
+const selectorArchivos = await promesaArchivo;
+//Inggresamos la ruta donde se encuentra el archivo a cargar
+await selectorArchivos.setFiles('C:/Users/mario/OneDrive/Documentos/automatizacion/Misiones.xlsx');
+//Pausa breve para que carge el archivo
+await page.waitForTimeout(500);
+//Damos clic en el boton de cargar, para que carge el archivo
+await page.getByRole('dialog').getByRole('button', { name: 'Cargar', exact: true }).click();
+//Eesperamos que el modal carge los archivos y se cierre por si mismo
+await expect(page.getByRole('dialog')).toBeHidden({ timeout: 700 });
+
+
+/*
+  //PARA CREAR
 
 
   // es para dar clic al boton agregar
@@ -63,13 +83,17 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Establecimiento*' }).fill('ESTABLECIMIENTO 13');
   await page.waitForTimeout(500);
 
+*/
+
   //damos clic en cancelar
  // await page.getByRole('button', { name: 'Cancelar' }).click();
   //await page.waitForTimeout(500);
 
+
+
   //damos clic en guardar
-  await page.getByRole('button', { name: 'Agregar' }).nth(1).click();
-  await page.waitForTimeout(500);
+ // await page.getByRole('button', { name: 'Agregar' }).nth(1).click();
+ // await page.waitForTimeout(500);
   //await page.getByRole('button', { name: 'Agregar' }).nth(2).click();
   //await page.waitForTimeout(500);
 
